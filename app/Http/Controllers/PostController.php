@@ -10,10 +10,6 @@ use App\Http\Requests;
 
 class PostController extends Controller
 {
-    public function __construct(){
-        $this->middleware('auth', ['except' => ['index', 'show']]); //a la place de auth on peut mettre le nom de notre middleware (voir slide a partir de 92)
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -47,7 +43,6 @@ class PostController extends Controller
      */
     public function store(Requests\ValidatePostRequest $request)
     {
-        /*
         $this->validate($request,[
             'user_id' => 'required',
             'title'   => 'required|min:10',
@@ -59,12 +54,11 @@ class PostController extends Controller
             'description.required' => 'Description obligatoire',
             'description.min' => 'Description > 10 caractères,'
         ]);
-        */
 
         //Méthode 1
         $post = new Post;
 
-        $post->user_id      = $request->user()->id;
+        $post->user_id      = $request->user_id;
         $post->title        = $request->title;
         $post->description  = $request->description;
 
@@ -104,7 +98,7 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        $users = User::all()->lists('name', 'id');
+        $users = User::all();
         $post  = Post::find($id);
 
         if(!$post) {

@@ -15,7 +15,6 @@ $factory->define(App\Models\User::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->name,
         'email' => $faker->email,
-        'tel' => $faker->phoneNumber,
         'password' => bcrypt(str_random(10)),
         'remember_token' => str_random(10),
     ];
@@ -23,8 +22,8 @@ $factory->define(App\Models\User::class, function (Faker\Generator $faker) {
 
 $factory->define(App\Models\Post::class, function (Faker\Generator $faker) {
     return [
-        'user_id' => $faker->numberBetween(1, 20) ,
-        'title' => $faker->title,
-        'description' => $faker->text,
+        'user_id' => $faker->numberBetween(1,10),
+        'title' => $faker->text(30),
+        'description' => $faker->text(200),
     ];
 });

@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddForeignsKeys extends Migration
+class AddForeignKeys extends Migration
 {
     /**
      * Run the migrations.
@@ -26,8 +26,8 @@ class AddForeignsKeys extends Migration
     public function down()
     {
         Schema::table('comments', function (Blueprint $table) {
-            //$table->dropForeign('user_id');
-            //$table->dropForeign('post_id');
+           $table->dropforeign('user_id');
+            $table->dropforeign('post_id');
         });
     }
 }

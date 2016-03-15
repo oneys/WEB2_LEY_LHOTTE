@@ -12,8 +12,6 @@
 */
 
 
-use Illuminate\Http\Request;
-
 
 
 /*
@@ -27,43 +25,35 @@ use Illuminate\Http\Request;
 |
 */
 
-    Route::group(['middleware' => ['web']], function () {
+use Illuminate\Http\Request;
 
-    Route::group(['prefix' => 'articles'], function(){
-
-        /**
-        Route::get('/', function() {
-            return view('articles.index');
-        });
+Route::group(['middleware' => ['web']], function () {
 
 
-        Route::get('/create', function() {
-            return view('articles.create');
-        });
+    Route::group(['prefix' => 'articles'], function() {
 
+        /* Route::post('/articles', function(Request $request) {
+           dd($request->all());
+        }); */
 
-        Route::get('/create', 'ArticleController@create');
-
-        Route::post('/', [
+       /*  Route::post('/', [
             'as' => 'articles.store',
-            'uses' => function(Request $request) {
-            }]);
-
-        Route::post('/articles', function(Request $request) {
-        dd($request->all());
-        });
-         */
+            'uses' => function (Request $request) {
+                dd($request->all());
+            }]); */
     });
-
 
     Route::resource('/articles', 'PostController');
 
-    Route::auth();
+});
 
-    Route::get('/home', 'HomeController@index');
+Route::group(['middleware' => 'web'], function () {
+    Route::auth();
 
     Route::get('/', function () {
         return view('welcome');
     });
-
+    Route::get('/home', 'HomeController@index');
 });
+
+

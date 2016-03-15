@@ -1,4 +1,5 @@
 @extends('layouts.app')
+
 @section('content')
     <h1>Article n° {{ $article->id }} - <a href="{{route('articles.edit', $article->id)}}">Editer</a> </h1>
 
