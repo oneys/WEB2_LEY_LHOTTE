@@ -159,15 +159,7 @@ return [
         Collective\Html\HtmlServiceProvider::class,
 
 
-<<<<<<< HEAD
 ],
-=======
-
-        /* Formulaire */
-        Collective\Html\HtmlServiceProvider::class,
-
-    ],
->>>>>>> 3771714b514393664141cb9d24afe4c26e64b6e4
 
     /*
     |--------------------------------------------------------------------------
@@ -212,10 +204,6 @@ return [
         'URL'       => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View'      => Illuminate\Support\Facades\View::class,
-        'Form' => Collective\Html\FormFacade::class,
-        'Html' => Collective\Html\HtmlFacade::class,
-
-        /* Pour le formulaire */
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
 

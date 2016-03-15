@@ -23,14 +23,8 @@ $factory->define(App\Models\User::class, function (Faker\Generator $faker) {
 
 $factory->define(App\Models\Post::class, function (Faker\Generator $faker) {
     return [
-<<<<<<< HEAD
         'user_id' => $faker->numberBetween(1, 20) ,
         'title' => $faker->title,
         'description' => $faker->text,
-=======
-        'user_id' => $faker->numberBetween(1,10),
-        'title' => $faker->text(30),
-        'description' => $faker->text(200),
->>>>>>> 3771714b514393664141cb9d24afe4c26e64b6e4
     ];
 });
