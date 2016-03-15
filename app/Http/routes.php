@@ -27,27 +27,27 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::group(['middleware' => ['web']], function () {
+    Route::group(['middleware' => ['web']], function () {
 
     Route::group(['prefix' => 'articles'], function(){
 
         /**
         Route::get('/', function() {
-        return view('articles.index');
+            return view('articles.index');
         });
 
 
         Route::get('/create', function() {
-        return view('articles.create');
+            return view('articles.create');
         });
 
 
         Route::get('/create', 'ArticleController@create');
 
         Route::post('/', [
-        'as' => 'articles.store',
-        'uses' => function(Request $request) {
-        }]);
+            'as' => 'articles.store',
+            'uses' => function(Request $request) {
+            }]);
 
         Route::post('/articles', function(Request $request) {
         dd($request->all());
