@@ -52,7 +52,6 @@ public function rules()
         'user_id' => 'required',
         'title'   => 'required|min:10',
         'description' => 'required|min:10'
-
     ];}
 
 public function messages(){
