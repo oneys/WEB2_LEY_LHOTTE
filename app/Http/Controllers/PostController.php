@@ -3,13 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
-use App\Models\User;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth')->only(['create', 'edit']);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -17,10 +22,10 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::all();
+        $list = Post::orderBy('created_at', 'desc')->paginate(10);
 
-        return view('articles.index')
-            ->with(compact('posts'));
+        return view('posts.index', compact('list'));
+
     }
 
     /**
@@ -30,9 +35,8 @@ class PostController extends Controller
      */
     public function create()
     {
-        $users = User::all()->lists('name', 'id');
-
-        return view('articles.create')->with(compact('users'));
+        return view('posts.create');
+       // return view('posts.create');
     }
 
     /**
@@ -41,36 +45,19 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Requests\ValidatePostRequest $request)
+    public function store(Request $request)
     {
-        $this->validate($request,[
-            'user_id' => 'required',
-            'title'   => 'required|min:10',
-            'description' => 'required|min:10'
-        ], [
-            'user_id.required' => 'User id manquant',
-            'title.required' => 'Titre obligatoire',
-            'title.min' => 'Titre > 10 caractères',
-            'description.required' => 'Description obligatoire',
-            'description.min' => 'Description > 10 caractères,'
+        $this -> validate($request, [
+            'title' => 'required',
+            'content' => 'required'
         ]);
 
-        //Méthode 1
         $post = new Post;
+        $input = $request -> input();
+        $input['user_id'] = Auth::user() -> id;
+        $post -> fill($input) -> save();
 
-        $post->user_id      = $request->user_id;
-        $post->title        = $request->title;
-        $post->description  = $request->description;
-
-        $post->save();
-
-
-        //Méthode 2
-
-        //$post = Post::create($request->except('_token'));
-
-        return redirect()->route('articles.show', $post->id);
-
+        return redirect() -> route('post.index');
     }
 
     /**
@@ -81,13 +68,9 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        $post = Post::find($id);
+        $post = Post::findOrFail($id);
 
-        if(!$post) {
-            return redirect()->to('/articles');
-        }
-
-        return view('articles.show')->with(['article' => $post]);
+        return view('posts.show', compact('post'));
     }
 
     /**
@@ -98,14 +81,8 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        $users = User::all();
-        $post  = Post::find($id);
-
-        if(!$post) {
-            return redirect()->to('/articles');
-        }
-
-        return view('articles.edit')->with(compact('users', 'post'));
+        $post = Post::findOrFail($id);
+        return view('posts.edit', compact('post'));
     }
 
     /**
@@ -115,21 +92,18 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Requests\ValidatePostRequest $request, $id)
+    public function update(Request $request, $id)
     {
-        $post = Post::find($id);
+        $this -> validate($request, [
+            'title' => 'required',
+            'content' => 'required'
+        ]);
 
-        if(!$post) {
-            return redirect()->to('/articles');
-        }
+        $post = Post::findOrFail($id);
+        $input = $request->input();
+        $post->fill($input)->save();
 
-        $post->title        = $request->title;
-        $post->description  = $request->description;
-        $post->user_id      = $request->user_id;
-
-        $post->save();
-
-        return redirect()->route('articles.show', $post->id);
+        return redirect() -> route('post.index') -> with('success', 'Votre article a bien été modifié');
     }
 
     /**
@@ -140,14 +114,9 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        $post = Post::find($id);
-
-        if(!$post) {
-            return redirect()->route('articles.index');
-        }
-
+        $post = Post::findOrFail($id);
         $post->delete();
 
-        return redirect()->route('articles.index');
+        return redirect() -> route('post.index') -> with('success', 'Votre article a bien été supprimé');
     }
 }

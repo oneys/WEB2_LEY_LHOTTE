@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddColumnPosts extends Migration
+class UpdateUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,9 +12,10 @@ class AddColumnPosts extends Migration
      */
     public function up()
     {
-        Schema::table('posts', function (Blueprint $table) {
-            $table->integer('user_id')->unsigned()->after('id');
-            $table->foreign('user_id')->references('id')->on('users');
+        Schema::table('users', function(Blueprint $table){
+            $table->boolean('isAdmin')
+                ->after('remember_token')
+                ->default(false);
         });
     }
 
@@ -25,8 +26,9 @@ class AddColumnPosts extends Migration
      */
     public function down()
     {
-        Schema::table('posts', function (Blueprint $table) {
-            //
+        Schema::table('users', function(Blueprint $table){
+            $table->dropColumn('isAdmin');
+
         });
     }
 }

@@ -11,9 +11,6 @@
 |
 */
 
-
-
-
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -25,35 +22,21 @@
 |
 */
 
-use Illuminate\Http\Request;
-
-Route::group(['middleware' => ['web']], function () {
-
-
-    Route::group(['prefix' => 'articles'], function() {
-
-        /* Route::post('/articles', function(Request $request) {
-           dd($request->all());
-        }); */
-
-       /*  Route::post('/', [
-            'as' => 'articles.store',
-            'uses' => function (Request $request) {
-                dd($request->all());
-            }]); */
-    });
-
-    Route::resource('/articles', 'PostController');
-
-});
-
 Route::group(['middleware' => 'web'], function () {
+
     Route::auth();
 
-    Route::get('/', function () {
-        return view('welcome');
-    });
     Route::get('/home', 'HomeController@index');
-});
 
+	Route::get('/', function() {
+    	return view('welcome');
+	});
+	
+	Route::resource('/post', 'PostController');
+
+	Route::get('/admin', function() {
+		return 'admin';
+	})->middleware('isadmin');
+
+});
 

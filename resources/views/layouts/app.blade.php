@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Laravel_Module</title>
+    <title>Laravel</title>
 
     <!-- Fonts -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel='stylesheet' type='text/css'>
@@ -18,6 +18,8 @@
     <style>
         body {
             font-family: 'Lato';
+            background-image: url('../space.jpg');
+            background-size: cover;
         }
 
         .fa-btn {
@@ -48,8 +50,10 @@
                 <!-- Left Side Of Navbar -->
                 <ul class="nav navbar-nav">
                     <li><a href="{{ url('/home') }}">Home</a></li>
-                    <li><a href="{{ url('/articles') }}">Articles</a></li>
-                    <li><a href="{{ url('/articles/create') }}">Create</a></li>
+                    <li><a href="{{ route('post.index') }}">Articles</a></li>
+                    @if(Auth::check())
+                    <li><a href="{{ route('post.create') }}">Rédiger un article</a></li>
+                    @endif
                 </ul>
 
                 <!-- Right Side Of Navbar -->

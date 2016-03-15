@@ -22,8 +22,16 @@ $factory->define(App\Models\User::class, function (Faker\Generator $faker) {
 
 $factory->define(App\Models\Post::class, function (Faker\Generator $faker) {
     return [
-        'user_id' => $faker->numberBetween(1,10),
-        'title' => $faker->text(30),
-        'description' => $faker->text(200),
+        'title' => $faker->sentence(6, true),
+        'content' => $faker->text,
+        'user_id' => $faker->numberBetween(1, 20),
+    ];
+});
+
+$factory->define(App\Models\Comment::class, function (Faker\Generator $faker) {
+    return [
+        'comment' => $faker->text,
+        'user_id' => $faker->numberBetween(1, 20),
+        'post_id' => $faker->numberBetween(1, 15),
     ];
 });
