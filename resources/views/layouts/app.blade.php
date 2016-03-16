@@ -54,6 +54,13 @@
 
                     @if(Auth::check())
                     <li><a href="{{ route('post.create') }}">Rédiger un article</a></li>
+
+
+                    <!-- MENU CREER UNE BAP -->
+                        <li><a href="{{ url('/createBAP') }}"><i class="fa fa-plus"></i>Créer une BAP</a></li>
+
+
+
                     @endif
 
                 </ul>
@@ -78,7 +85,7 @@
                             </ul>
                         </li>
                     @endif
-                    <li><a href="{{ url('/contact') }}">Contact</a></li>
+                    <li><a href="{{ url('/contact') }}"><i class="fa fa-user fa-envelope"></i>Contact</a></li>
                 </ul>
             </div>
         </div>
