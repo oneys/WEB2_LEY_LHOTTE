@@ -32,8 +32,12 @@ Route::group(['middleware' => 'web'], function () {
     	return view('welcome');
 	});
 
+	Route::get('/contact', function() {
+		return view('contact');
+	});
+
 	Route::resource('/user', 'UserController');
-	
+
 	Route::resource('/post', 'PostController');
 
 	Route::get('/admin', function() {
