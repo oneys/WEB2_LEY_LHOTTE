@@ -9,16 +9,23 @@
                     <div class="panel-heading">Ajouter un commentaire</div>
                     <div class="panel-body">
                         {!! Form::open(array(
-                            'route' => 'comment.store',
+                            'route' => 'post.store',
                             'method' => 'POST'
                             ))
                         !!}
-
                         <div class="form-group">
-                            {!! Form::label('content', 'Commentaire') !!}
+                            {!! Form::label('title', 'Titre') !!}
+                            {!! Form::text('title', '',
+                                ['class' => 'form-control',
+                                'placeholder' => 'Mon titre'
+                                ])
+                            !!}
+                        </div>
+                        <div class="form-group">
+                            {!! Form::label('content', 'Contenu') !!}
                             {!! Form::textarea('content', '',
                                 ['class' => 'form-control',
-                                'placeholder' => 'Commentaire'
+                                'placeholder' => 'Contenu'
                                 ])
                             !!}
                         </div>
@@ -38,3 +45,4 @@
     </div>
     </div>
 @endsection
+

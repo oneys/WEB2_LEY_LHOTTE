@@ -2,12 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Comment;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use Illuminate\Support\Facades\Auth;
 
 class CommentController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth')->only(['create', 'edit']);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +21,9 @@ class CommentController extends Controller
      */
     public function index()
     {
-        //
+        $list = Comment::orderBy('created_at', 'desc')->paginate(20);
+
+        return view('comment.index', compact('list'));
     }
 
     /**
@@ -25,7 +33,7 @@ class CommentController extends Controller
      */
     public function create()
     {
-        //
+        return view('comment.create');
     }
 
     /**
@@ -36,7 +44,16 @@ class CommentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this -> validate($request, [
+            'comment' => 'required'
+        ]);
+
+        $comment = new Comment;
+        $input = $request -> input();
+        $input['user_id'] = Auth::user() -> id;
+        $comment -> fill($input) -> save();
+
+        return redirect() -> route('post.show', $comment->post_id);
     }
 
     /**
@@ -47,7 +64,9 @@ class CommentController extends Controller
      */
     public function show($id)
     {
-        //
+        $post = Post::findOrFail($id);
+
+        return view('comment.show', compact('post'));
     }
 
     /**
@@ -58,7 +77,8 @@ class CommentController extends Controller
      */
     public function edit($id)
     {
-        //
+        $comment = Comment::findOrFail($id);
+        return view('comment.edit', compact('comment'));
     }
 
     /**
@@ -70,7 +90,15 @@ class CommentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this -> validate($request, [
+            'comment' => 'required'
+        ]);
+
+        $comment = Comment::findOrFail($id);
+        $input = $request->input();
+        $comment->fill($input)->save();
+
+        return redirect() -> route('post.show', $comment->post_id) -> with('success', 'Votre commentaire a bien été modifié');
     }
 
     /**
@@ -81,6 +109,9 @@ class CommentController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $comment = Comment::findOrFail($id);
+        $comment->delete();
+
+        return redirect() -> route('post.show', $comment->post_id) -> with('success', 'Votre commentaire a bien été supprimé');
     }
 }

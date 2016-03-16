@@ -36,8 +36,34 @@
                     {!! Form::close() !!}
                 </div>
                 <div class="panel-body">
+                    {!! Form::open(array(
+                        'route' => 'comment.store',
+                        'method' => 'POST'
+                        ))
+                    !!}
+
+                    {!! Form::hidden('post_id', $post->id, ['class' => 'form-control']) !!}
+
+                    <div class="form-group">
+                        {!! Form::label('comment', 'Contenu') !!}
+                        {!! Form::textarea('comment', '',
+                            ['class' => 'form-control',
+                            'placeholder' => 'Contenu'
+                            ])
+                        !!}
+                    </div>
+
+                </div>
+                <div class="panel-footer">
+                    {!! Form::submit('Publier le commentaire',
+                        ['class' => 'btn btn-primary'])
+                    !!}
+
+                    {!! Form::close() !!}
+                    <a class="btn btn-default" href="{{ route('post.index') }}">Retour aux articles</a>
+                </div>
+                <div class="panel-body">
                     <h3>Commentaires</h3>
-                    <a class="btn btn-default" href="{{ route('comment.create', $post->id) }}">Ajouter un commentaire</a>
 
 
                     @foreach($post->comments as $comment)
