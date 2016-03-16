@@ -18,7 +18,7 @@
     <style>
         body {
             font-family: 'Lato';
-            background-image: url('../space.jpg');
+            background-image: url('../starwars.jpg');
             background-size: cover;
         }
 
@@ -42,7 +42,7 @@
 
                 <!-- Branding Image -->
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    Laravel
+                   Dark Laravel
                 </a>
             </div>
 
