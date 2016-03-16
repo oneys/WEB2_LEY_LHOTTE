@@ -37,6 +37,8 @@
                 </div>
                 <div class="panel-body">
                     <h3>Commentaires</h3>
+                    <a class="btn btn-default" href="{{ route('comment.create', $post->id) }}">Ajouter un commentaire</a>
+
 
                     @foreach($post->comments as $comment)
                         <p>
