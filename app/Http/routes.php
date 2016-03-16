@@ -29,12 +29,26 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('/home', 'HomeController@index');
 
 	Route::get('/', function() {
-    	return view('welcome');
+    	return view('home');
 	});
 
 	Route::get('/contact', function() {
 		return view('contact');
 	});
+
+	Route::get('/facebook', function() {
+		return view('facebook');
+	});
+
+	Route::get('/facebook-login', [
+		'uses' => 'facebookController@facebookLogin',
+		'as' => 'facebooklogin',
+	]);
+
+	Route::get('/facebook-callback', [
+		'uses' => 'facebookController@facebookCallback',
+		'as' => 'facebookcallback',
+	]);
 
 	Route::resource('/user', 'UserController');
 

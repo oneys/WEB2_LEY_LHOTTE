@@ -35,4 +35,10 @@ return [
         'secret' => env('STRIPE_SECRET'),
     ],
 
+    'facebook' => [
+        'client_id' => '778914718905842',
+        'client_secret' => 'cd85fe267e09b2956d81747d4730c91f',
+        'redirect' => 'http://localhost:8888/WEB2_LEY_LHOTTE/public/laravel-login-callback',
+    ],
+
 ];
