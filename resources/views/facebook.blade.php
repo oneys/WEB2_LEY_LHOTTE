@@ -32,7 +32,8 @@
             @else
                 <a href="{{route('facebooklogin')}}"> <button class="btn btn-primary">FB Connexion</button> </a>
             @endif
-            <h3>Il n'arrive pas à récupérer les infos car pour que le VHOST fonctionne il faut un DNS.. que je n'ai pas. <br> Ou le mettre en ligne</h3>
+            <h3>Il n'arrive pas à récupérer les infos car pour que le VHOST fonctionne il faut un DNS.. que je n'ai pas. <br> Ou le mettre en ligne
+                <br>Mais si tu veux, regarde le code et tu verras qu'il doit fonctionner</h3>
         </div>
     </div>
     <!-- /.row -->

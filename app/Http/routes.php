@@ -36,10 +36,6 @@ Route::group(['middleware' => 'web'], function () {
 		return view('contact');
 	});
 
-	Route::get('/createBAP', function() {
-		return view('createBAP');
-	});
-
 	Route::get('/facebook', function() {
 		return view('facebook');
 	});
@@ -57,6 +53,8 @@ Route::group(['middleware' => 'web'], function () {
 	Route::resource('/user', 'UserController');
 
 	Route::resource('/post', 'PostController');
+
+	Route::resource('/bap', 'BapController');
 
     Route::resource('/comment', 'CommentController');
 

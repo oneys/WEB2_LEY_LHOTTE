@@ -57,7 +57,8 @@
 
 
                     <!-- MENU CREER UNE BAP -->
-                        <li><a href="{{ url('/createBAP') }}"><i class="fa fa-plus"></i>Créer une BAP</a></li>
+                        <li><a href="{{ url('bap/create') }}"><i class="fa fa-plus"></i>Créer une BAP</a></li>
+                        <li><a href="{{ url('bap') }}"><i class="fa fa-eye"></i>Voir BAP</a></li>
 
 
 
@@ -70,8 +71,8 @@
                     <!-- Authentication Links -->
                     @if (Auth::guest())
                         <li><a href="{{ url('/login') }}">Login</a></li>
-                        <li><a href="{{ url('/facebook') }}">Connexion avec facebook</a></li>
                         <li><a href="{{ url('/register') }}">Register</a></li>
+                        <li><a href="{{ url('/facebook') }}"><i class="fa fa-facebook-square"> Connexion</i></a></li>
 
                     @else
                         <li class="dropdown">
