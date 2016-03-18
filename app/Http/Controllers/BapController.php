@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
 use Illuminate\Http\Request;
+use App\Models\Bap;
 use App\Http\Requests;
 use Illuminate\Support\Facades\Auth;
 
-class UserController extends Controller
+class BapController extends Controller
 {
 
     public function __construct()
     {
-        $this->middleware('auth')->only(['edit']);
+        $this->middleware('auth')->only(['create', 'edit']);
     }
     /**
      * Display a listing of the resource.
@@ -21,8 +21,10 @@ class UserController extends Controller
      */
     public function index()
     {
-        $user=Auth::user();
-        return view('auth/users.edit')->with(array("user"=>$user));
+
+        $list = Bap::orderBy('created_at', 'desc')->paginate(10);
+        return view('bap.index', compact('list'));
+
     }
 
     /**
@@ -32,7 +34,8 @@ class UserController extends Controller
      */
     public function create()
     {
-
+        return view('bap.create');
+        // return view('posts.create');
     }
 
     /**
@@ -43,7 +46,15 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+        $this -> validate($request, [
+            'title' => 'required',
+        ]);
 
+        $bap = new Bap;
+        $input = $request -> input();
+        $bap -> fill($input) -> save();
+
+        return redirect() -> route('bap.index');
     }
 
     /**
@@ -54,9 +65,9 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        $user = Auth::findOrFail($id);
+        $bap = Bap::findOrFail($id);
 
-        return view('users.show', compact('user'));
+        return view('bap.show', compact('bap'));
     }
 
     /**
@@ -67,8 +78,9 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $user = Auth::findOrFail($id);
-        return view('users.edit', compact('user'));
+        $bap = Bap::findOrFail($id);
+
+        return view('bap.edit', compact('bap'));
     }
 
     /**
@@ -80,17 +92,7 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this -> validate($request, [
-            'name' => 'required',
-            'email' => 'required',
-            'password' => 'required'
-        ]);
 
-        $user = User::findOrFail($id);
-        $input = $request->input();
-        $user->fill($input)->save();
-
-        return redirect() -> route('user.index') -> with('success', 'Votre profil a bien été modifié');
     }
 
     /**

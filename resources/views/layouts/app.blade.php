@@ -49,7 +49,6 @@
             <div class="collapse navbar-collapse" id="app-navbar-collapse">
                 <!-- Left Side Of Navbar -->
                 <ul class="nav navbar-nav">
-                    <li><a href="{{ url('/home') }}">Home</a></li>
                     <li><a href="{{ route('post.index') }}">Articles</a></li>
 
                     @if(Auth::check())
@@ -81,8 +80,8 @@
                             </a>
 
                             <ul class="dropdown-menu" role="menu">
+                                <li><a href="{{ url('/user') }}"><i class="fa fa-user fa-fw"></i>Modifier Profil</a></li>
                                 <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
-                                <li><a href="{{ url('/user') }}"><i class="fa fa-user fa-fw"></i>Profil</a></li>
                             </ul>
                         </li>
                     @endif
