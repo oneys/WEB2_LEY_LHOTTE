@@ -12,18 +12,7 @@ class ForeignKeys extends Migration
      */
     public function up()
     {
-        Schema::table('posts', function(Blueprint $table) {
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-        });
 
-        Schema::table('comments', function(Blueprint $table) {
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('post_id')->references('id')->on('posts')->onDelete('cascade');
-        });
-
-        Schema::table('baps', function(Blueprint $table) {
-            $table->foreign('bap_id')->references('id')->on('baps')->onDelete('cascade');
-        });
     }
 
     /**
